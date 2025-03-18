@@ -9,7 +9,7 @@ spring:
     # 数据库连接使用 jdbc
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接地址
-    url: jdbc:mysql://localhost:3306/demo-todo-list?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/todo-list?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     # 用户名
     username: root
     # 密码
