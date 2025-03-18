@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: spring-todo-list
+server:
+  port: 9000
