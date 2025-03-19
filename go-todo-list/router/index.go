@@ -14,8 +14,7 @@ func InitRouter() *gin.Engine {
 	// router 进行分组
 	publicGroup := router.Group("")
 	{
-		// todolist 的路由注册
-		InitTodoListRouter(publicGroup)
+		InitTodoListRouter(publicGroup) // todolist 的路由注册
 	}
 
 	// 运行在 9000 端口
@@ -30,5 +29,5 @@ func InitRouter() *gin.Engine {
 
 // 全局变量 提升 api
 var (
-	todoListApi = api.ApiGroupApp.TodoListApi // api.ApiGroup{} // api.TodoListApi{} // api.ApiGroupApp.TodoListApi
+	todoListApi = api.ApiGroupApp.TodoListApi
 )
