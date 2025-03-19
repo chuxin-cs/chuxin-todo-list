@@ -9,9 +9,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TodoList extends BaseEntity {
-
-    /**
-     * todo list name
-     */
     private String name;
 }

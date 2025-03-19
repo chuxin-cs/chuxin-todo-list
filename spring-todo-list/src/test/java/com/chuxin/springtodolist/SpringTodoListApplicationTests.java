@@ -9,5 +9,4 @@ class SpringTodoListApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

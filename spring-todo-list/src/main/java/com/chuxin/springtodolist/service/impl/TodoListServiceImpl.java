@@ -3,9 +3,12 @@ package com.chuxin.springtodolist.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chuxin.springtodolist.mapper.TodoListMapper;
 import com.chuxin.springtodolist.model.entity.TodoList;
+import com.chuxin.springtodolist.model.vo.TodoListVO;
 import com.chuxin.springtodolist.service.TodoListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> implements TodoListService {
@@ -14,7 +17,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
     private TodoListMapper todoListMapper;
 
     @Override
-    public String getTodoLists() {
-        return "11111";
+    public List<TodoList> getTodoLists() {
+        return this.todoListMapper.getTodoList();
     }
 }
