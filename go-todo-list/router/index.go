@@ -12,7 +12,7 @@ func InitRouter() *gin.Engine {
 	router.Use(gin.Recovery())
 
 	// router 进行分组
-	publicGroup := router.Group("")
+	publicGroup := router.Group("/api")
 	{
 		InitTodoListRouter(publicGroup) // todolist 的路由注册
 	}

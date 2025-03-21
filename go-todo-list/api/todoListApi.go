@@ -1,10 +1,11 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
 	"go-todo-list/database"
 	"go-todo-list/model"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type TodoListApi struct{}
@@ -12,9 +13,10 @@ type TodoListApi struct{}
 // GetTodoList 获取 TodoList 列表
 func (t *TodoListApi) GetTodoList(c *gin.Context) {
 	var userList []model.TodoListModel
-	err := database.DB.Find(&userList).Error
+	err := database.DB.Limit(1).Offset(10).Find(&userList).Error
 	if err != nil {
-		panic(err)
+		c.JSON(500, gin.H{"message": "查询失败", "code": http.StatusInternalServerError})
+		return
 	}
 	c.JSON(200, gin.H{
 		"message": "查询成功！",
@@ -25,29 +27,99 @@ func (t *TodoListApi) GetTodoList(c *gin.Context) {
 
 // GetTodoInfo 获取 TodoList 详情
 func (t *TodoListApi) GetTodoInfo(c *gin.Context) {
-	c.JSON(200, gin.H{"message": "hello world"})
+	id := c.Param("id")
+	var todo model.TodoListModel
+	err := database.DB.First(&todo, id).Error
+	if err != nil {
+		c.JSON(404, gin.H{"message": "未找到该TodoList", "code": http.StatusNotFound})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": "查询成功！",
+		"code":    http.StatusOK,
+		"data":    todo,
+	})
 }
 
 // Delete 删除 TodoList
 func (t *TodoListApi) Delete(c *gin.Context) {
-	c.JSON(200, gin.H{"message": "hello world"})
+	// 从请求参数中获取要删除的TodoList的ID
+	id := c.Param("id")
+	// 检查ID是否为空
+	if id == "" {
+		c.JSON(400, gin.H{"message": "缺少必要的ID参数", "code": http.StatusBadRequest})
+		return
+	}
+	// 根据ID删除TodoList
+	var todo model.TodoListModel
+	result := database.DB.Delete(&todo, id)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"message": "删除失败", "code": http.StatusInternalServerError})
+		return
+	}
+	// 检查是否有记录被删除
+	if result.RowsAffected == 0 {
+		c.JSON(404, gin.H{"message": "未找到该TodoList", "code": http.StatusNotFound})
+		return
+	}
+	// 删除成功
+	c.JSON(200, gin.H{
+		"message": "删除成功",
+		"code":    http.StatusOK,
+	})
 }
 
 // Update 更新 TodoList
 func (t *TodoListApi) Update(c *gin.Context) {
-	c.JSON(200, gin.H{"message": "hello world"})
+	// 从请求参数中获取要更新的TodoList的ID
+	id := c.Param("id")
+	// 检查ID是否为空
+	if id == "" {
+		c.JSON(400, gin.H{"message": "缺少必要的ID参数", "code": http.StatusBadRequest})
+		return
+	}
+	// 绑定请求体到TodoListModel
+	var todo model.TodoListModel
+	if err := c.ShouldBindJSON(&todo); err != nil {
+		c.JSON(400, gin.H{"message": "请求体格式错误", "code": http.StatusBadRequest})
+		return
+	}
+	// 根据ID查找TodoList
+	var existingTodo model.TodoListModel
+	result := database.DB.First(&existingTodo, id)
+	if result.Error != nil {
+		c.JSON(404, gin.H{"message": "未找到该TodoList", "code": http.StatusNotFound})
+		return
+	}
+	// 更新TodoList
+	if err := database.DB.Model(&existingTodo).Updates(todo).Error; err != nil {
+		c.JSON(500, gin.H{"message": "更新失败", "code": http.StatusInternalServerError})
+		return
+	}
+	// 更新成功
+	c.JSON(200, gin.H{
+		"message": "更新成功",
+		"code":    http.StatusOK,
+		"data":    existingTodo,
+	})
 }
 
 // Add 新增 TodoList
 func (t *TodoListApi) Add(c *gin.Context) {
-	todo := model.TodoListModel{Name: "初心"}
-	err := database.DB.Create(&todo).Error
-	if err != nil {
-		c.JSON(500, gin.H{"error": "创建失败"})
+	// 从请求体中绑定数据到 TodoListModel
+	var todo model.TodoListModel
+	if err := c.ShouldBindJSON(&todo); err != nil {
+		c.JSON(400, gin.H{"message": "请求体格式错误", "code": http.StatusBadRequest})
 		return
 	}
 
-	// 创建成功 把成功的数据返回出去
+	// 尝试创建 TodoList
+	if err := database.DB.Create(&todo).Error; err != nil {
+		c.JSON(500, gin.H{"message": "创建失败", "code": http.StatusInternalServerError})
+		return
+	}
+
+	// 创建成功，返回成功的数据
 	c.JSON(200, gin.H{
 		"message": "创建成功",
 		"code":    http.StatusOK,
