@@ -1,8 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"go-todo-list/api"
+	"go-todo-list/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 // InitRouter 路由初始化
@@ -10,6 +12,8 @@ func InitRouter() *gin.Engine {
 	// 初始化
 	router := gin.New()
 	router.Use(gin.Recovery())
+	router.Use(gin.Logger())
+	router.Use(middleware.CORSMiddleware())
 
 	// router 进行分组
 	publicGroup := router.Group("/api")
