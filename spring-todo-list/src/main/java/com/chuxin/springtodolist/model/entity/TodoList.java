@@ -17,7 +17,7 @@ public class TodoList extends BaseEntity {
     /**
      * 是否完成
      */
-    private boolean completed;
+    private Integer completed;
 
     /**
      * 状态 (1-正常 0-禁用)
