@@ -4,9 +4,15 @@ import (
 	"fmt"
 	"go-todo-list/config"
 	"go-todo-list/database"
+	_ "go-todo-list/docs" // 新增文档导入
 	"go-todo-list/router"
 )
 
+// @title TodoList API
+// @version 1.0
+// @description This is a todo list server
+// @host localhost:8080
+// @BasePath /
 func main() {
 	fmt.Println("go todo list ...")
 

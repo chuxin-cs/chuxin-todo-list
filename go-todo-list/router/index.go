@@ -1,6 +1,8 @@
 package router
 
 import (
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"go-todo-list/api"
 	"go-todo-list/middleware"
 
@@ -14,6 +16,9 @@ func InitRouter() *gin.Engine {
 	router.Use(gin.Recovery())
 	router.Use(gin.Logger())
 	router.Use(middleware.CORSMiddleware())
+
+	// swagger
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// router 进行分组
 	publicGroup := router.Group("/api")

@@ -1,0 +1,51 @@
+basePath: /
+definitions:
+  model.TodoListModel:
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键id
+        type: integer
+      name:
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a todo list server
+  title: TodoList API
+  version: "1.0"
+paths:
+  /todolist/getTodoLists:
+    get:
+      description: 获取分页的待办事项列表
+      parameters:
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页数量
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TodoListModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取待办列表
+      tags:
+      - TodoList
+swagger: "2.0"

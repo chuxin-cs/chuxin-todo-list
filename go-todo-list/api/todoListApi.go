@@ -11,6 +11,15 @@ import (
 type TodoListApi struct{}
 
 // GetTodoList 获取 TodoList 列表
+// @Summary 获取待办列表
+// @Description 获取分页的待办事项列表
+// @Tags TodoList
+// @Produce json
+// @Param page query int false "页码"
+// @Param page_size query int false "每页数量"
+// @Success 200 {object} model.TodoListModel
+// @Failure 500 {object} map[string]interface{}
+// @Router /todolist/getTodoLists [get]
 func (t *TodoListApi) GetTodoList(c *gin.Context) {
 	var userList []model.TodoListModel
 	err := database.DB.Limit(1).Offset(10).Find(&userList).Error
