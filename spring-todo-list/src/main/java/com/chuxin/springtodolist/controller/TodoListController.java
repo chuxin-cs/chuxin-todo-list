@@ -34,25 +34,25 @@ public class TodoListController {
         return this.todoListService.getTodoListById(id);
     }
 
-    @PostMapping("/addTodoList")
+    @PostMapping("/add")
     @Operation(summary = "添加todolist")
     public Result<Boolean> addTodoList(@RequestBody TodoList todoList) {
         return this.todoListService.addTodoList(todoList);
     }
 
-    @PutMapping("/updateTodoList")
+    @PutMapping("/update")
     @Operation(summary = "修改todolist")
     public Result<Boolean> updateTodoList(@RequestBody TodoList todoList) {
         return this.todoListService.updateTodoList(todoList);
     }
 
-    @DeleteMapping("/deleteTodoList/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "删除todolist")
     public Result<Boolean> deleteTodoList(@PathVariable Long id) {
         return this.todoListService.deleteTodoList(id);
     }
 
-    @DeleteMapping("/deleteTodoLists")
+    @DeleteMapping("/delete")
     @Operation(summary = "批量删除todolist")
     public Result<Boolean> deleteTodoLists(@RequestParam("ids") String idsStr) {
         List<Long> ids = Arrays.stream(idsStr.split(",")).map(Long::parseLong).collect(Collectors.toList());
