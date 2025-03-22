@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Tag(name = "todoList")
 @RestController
@@ -46,5 +48,12 @@ public class TodoListController {
     @Operation(summary = "删除todolist")
     public Result<Boolean> deleteTodoList(@PathVariable Long id) {
         return this.todoListService.deleteTodoList(id);
+    }
+
+    @DeleteMapping("/deleteTodoLists")
+    @Operation(summary = "批量删除todolist")
+    public Result<Boolean> deleteTodoLists(@RequestParam("ids") String idsStr) {
+        List<Long> ids = Arrays.stream(idsStr.split(",")).map(Long::parseLong).collect(Collectors.toList());
+        return this.todoListService.deleteTodoLists(ids);
     }
 }

@@ -42,7 +42,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
         // 使用MyBatis-Plus的save方法新增记录
         boolean result = this.save(todoList);
         if (result) {
-            return Result.success(result);
+            return Result.success(true);
         } else {
             return Result.failed("新增待办事项失败");
         }
@@ -55,7 +55,7 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
         // 使用MyBatis-Plus的updateById方法更新记录
         boolean result = this.updateById(todoList);
         if (result) {
-            return Result.success(result);
+            return Result.success(true);
         } else {
             return Result.failed("更新待办事项失败");
         }
@@ -67,9 +67,21 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
         // 使用MyBatis-Plus的removeById方法删除记录
         boolean result = this.removeById(id);
         if (result) {
-            return Result.success(result);
+            return Result.success(true);
         } else {
             return Result.failed("删除待办事项失败");
+        }
+    }
+
+    // 批量删除
+    @Override
+    public Result<Boolean> deleteTodoLists(List<Long> ids) {
+        // 使用MyBatis-Plus的removeByIds方法批量删除记录
+        boolean result = this.removeByIds(ids);
+        if (result) {
+            return Result.success(true);
+        } else {
+            return Result.failed("批量删除待办事项失败");
         }
     }
 }

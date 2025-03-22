@@ -23,6 +23,8 @@
         <java.version>17</java.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <knife4j.version>4.4.0</knife4j.version>
+
+        <hutool.version>5.8.27</hutool.version>
     </properties>
 
     <!-- 项目依赖 -->
@@ -68,6 +70,12 @@
             <version>1.18.36</version>
             <!--编译测试环境，不打包在lib-->
             <scope>provided</scope>
+        </dependency>
+        <!--   2、hutool 工具     -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
 
     </dependencies>

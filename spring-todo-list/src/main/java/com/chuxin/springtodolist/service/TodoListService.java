@@ -12,6 +12,8 @@ public interface TodoListService extends IService<TodoList> {
     Result<Boolean> addTodoList(TodoList todoList);
     // 删除待办事项
     Result<Boolean> deleteTodoList(Long id);
+    // 批量删除待办事项
+    Result<Boolean> deleteTodoLists(List<Long> ids);
     // 修改待办事项
     Result<Boolean> updateTodoList(TodoList todoList);
     // 获取待办事项详情
