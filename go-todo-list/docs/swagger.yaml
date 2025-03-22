@@ -14,13 +14,102 @@ definitions:
         description: 更新时间
         type: string
     type: object
-host: localhost:8080
+host: localhost:9000
 info:
   contact: {}
   description: This is a todo list server
   title: TodoList API
   version: "1.0"
 paths:
+  /todolist/addTodo:
+    post:
+      description: 新增一个待办事项
+      parameters:
+      - description: 待新增的TodoList信息
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/model.TodoListModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TodoListModel'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 新增待办事项
+      tags:
+      - TodoList
+  /todolist/deleteTodo/{id}:
+    delete:
+      description: 根据ID删除单个待办事项
+      parameters:
+      - description: TodoList的ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 删除待办事项
+      tags:
+      - TodoList
+  /todolist/getTodoInfo/{id}:
+    get:
+      description: 根据ID获取单个待办事项的详细信息
+      parameters:
+      - description: TodoList的ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TodoListModel'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取待办事项详情
+      tags:
+      - TodoList
   /todolist/getTodoLists:
     get:
       description: 获取分页的待办事项列表
@@ -46,6 +135,46 @@ paths:
             additionalProperties: true
             type: object
       summary: 获取待办列表
+      tags:
+      - TodoList
+  /todolist/updateTodo/{id}:
+    put:
+      description: 根据ID更新单个待办事项的详细信息
+      parameters:
+      - description: TodoList的ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 待更新的TodoList信息
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/model.TodoListModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TodoListModel'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 更新待办事项
       tags:
       - TodoList
 swagger: "2.0"

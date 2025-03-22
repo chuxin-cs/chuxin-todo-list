@@ -35,6 +35,14 @@ func (t *TodoListApi) GetTodoList(c *gin.Context) {
 }
 
 // GetTodoInfo 获取 TodoList 详情
+// @Summary 获取待办事项详情
+// @Description 根据ID获取单个待办事项的详细信息
+// @Tags TodoList
+// @Produce json
+// @Param id path string true "TodoList的ID"
+// @Success 200 {object} model.TodoListModel
+// @Failure 404 {object} map[string]interface{}
+// @Router /todolist/getTodoInfo/{id} [get]
 func (t *TodoListApi) GetTodoInfo(c *gin.Context) {
 	id := c.Param("id")
 	var todo model.TodoListModel
@@ -51,6 +59,16 @@ func (t *TodoListApi) GetTodoInfo(c *gin.Context) {
 }
 
 // Delete 删除 TodoList
+// @Summary 删除待办事项
+// @Description 根据ID删除单个待办事项
+// @Tags TodoList
+// @Produce json
+// @Param id path string true "TodoList的ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Router /todolist/deleteTodo/{id} [delete]
 func (t *TodoListApi) Delete(c *gin.Context) {
 	// 从请求参数中获取要删除的TodoList的ID
 	id := c.Param("id")
@@ -79,6 +97,17 @@ func (t *TodoListApi) Delete(c *gin.Context) {
 }
 
 // Update 更新 TodoList
+// @Summary 更新待办事项
+// @Description 根据ID更新单个待办事项的详细信息
+// @Tags TodoList
+// @Produce json
+// @Param id path string true "TodoList的ID"
+// @Param todo body model.TodoListModel true "待更新的TodoList信息"
+// @Success 200 {object} model.TodoListModel
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Router /todolist/updateTodo/{id} [put]
 func (t *TodoListApi) Update(c *gin.Context) {
 	// 从请求参数中获取要更新的TodoList的ID
 	id := c.Param("id")
@@ -114,6 +143,15 @@ func (t *TodoListApi) Update(c *gin.Context) {
 }
 
 // Add 新增 TodoList
+// @Summary 新增待办事项
+// @Description 新增一个待办事项
+// @Tags TodoList
+// @Produce json
+// @Param todo body model.TodoListModel true "待新增的TodoList信息"
+// @Success 200 {object} model.TodoListModel
+// @Failure 400 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Router /todolist/addTodo [post]
 func (t *TodoListApi) Add(c *gin.Context) {
 	// 从请求体中绑定数据到 TodoListModel
 	var todo model.TodoListModel
