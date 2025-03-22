@@ -17,7 +17,7 @@ func main() {
 	fmt.Println("go todo list ...")
 
 	// 读取配置
-	config.Viper()
+	config.LoadConfig()
 
 	// 初始化数据库
 	database.Connect()

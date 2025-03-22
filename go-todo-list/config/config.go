@@ -2,8 +2,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"log"
+
+	"github.com/spf13/viper"
 )
 
 // Configs 整合所有的 struct
@@ -29,8 +30,8 @@ type Server struct {
 // GlobalConfig 定义全局变量
 var GlobalConfig Configs
 
-// Viper 读取config 文件下的配置 相比spring boot 的 application.yaml 可以直接读取 还是差一丢丢体验
-func Viper() {
+// LoadConfig 读取config 文件下的配置 相比spring boot 的 application.yaml 可以直接读取 还是差一丢丢体验
+func LoadConfig() {
 	// 设置文件名
 	viper.SetConfigName("config")
 	// 设置文件格式
