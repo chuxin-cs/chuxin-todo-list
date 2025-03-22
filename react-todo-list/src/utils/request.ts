@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 创建 axios 实例
 const service = axios.create({
   baseURL: 'http://127.0.0.1:9000/api', // 你的 API 基础 URL
-  timeout: 5000 // 请求超时时间
+  timeout: 50 * 1000 // 请求超时时间
 });
 
 // 请求拦截器
