@@ -7,4 +7,10 @@ import java.util.List;
 
 public interface TodoListService extends IService<TodoList> {
     List<TodoList> getTodoLists();
+    // 新增待办事项
+    boolean addTodoList(TodoList todoList);
+    // 删除待办事项
+    void deleteTodoList(Long id);
+    // 修改待办事项
+    boolean updateTodoList(TodoList todoList);
 }
