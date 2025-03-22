@@ -11,11 +11,18 @@ import java.util.List;
 
 @Service
 public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> implements TodoListService {
-    // 查询用户列表
+    // 查询列表
     @Override
     public List<TodoList> getTodoLists() {
         // 使用MyBatis-Plus的分页插件实现分页查询
         return this.list();
+    }
+
+    // 查询详情
+    @Override
+    public TodoList getTodoListById(Long id) {
+        // 使用MyBatis-Plus的getById方法根据ID查询记录
+        return this.getById(id);
     }
 
     // 新增

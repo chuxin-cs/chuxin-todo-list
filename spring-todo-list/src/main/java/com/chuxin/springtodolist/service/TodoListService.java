@@ -13,4 +13,6 @@ public interface TodoListService extends IService<TodoList> {
     void deleteTodoList(Long id);
     // 修改待办事项
     boolean updateTodoList(TodoList todoList);
+    // 获取待办事项详情
+    TodoList getTodoListById(Long id);
 }

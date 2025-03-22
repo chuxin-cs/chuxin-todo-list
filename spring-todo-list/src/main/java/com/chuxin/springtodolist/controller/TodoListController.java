@@ -23,6 +23,12 @@ public class TodoListController {
         return this.todoListService.getTodoLists();
     }
 
+    @GetMapping("/getTodoListById/{id}")
+    @Operation(summary = "获取todolist详情")
+    public TodoList getTodoListById(@PathVariable Long id) {
+        return this.todoListService.getTodoListById(id);
+    }
+
     @PostMapping("/addTodoList")
     @Operation(summary = "添加todolist")
     public boolean addTodoList(@RequestBody TodoList todoList) {
