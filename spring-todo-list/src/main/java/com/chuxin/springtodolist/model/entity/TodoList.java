@@ -9,5 +9,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TodoList extends BaseEntity {
-    private String name;
+    /**
+     * 文本内容
+     */
+    private String text;
+
+    /**
+     * 是否完成
+     */
+    private boolean completed;
+
+    /**
+     * 状态 (1-正常 0-禁用)
+     */
+    private Integer status;
+
+    /**
+     * 是否删除(0-否 1-是)
+     */
+    private Integer isDeleted;
 }

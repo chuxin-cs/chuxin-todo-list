@@ -1,5 +1,6 @@
 package com.chuxin.springtodolist.controller;
 
+import cn.hutool.core.lang.Assert;
 import com.chuxin.springtodolist.common.result.Result;
 import com.chuxin.springtodolist.model.entity.TodoList;
 import com.chuxin.springtodolist.service.TodoListService;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Tag(name = "todoList")
 @RestController
-@RequestMapping("/todolist")
+@RequestMapping("/api/todolist")
 public class TodoListController {
 
     @Autowired
@@ -23,6 +24,7 @@ public class TodoListController {
     @GetMapping("/getTodoLists")
     @Operation(summary = "获取todolist列表")
     public Result<List<TodoList>> getTodoLists() {
+        Assert.isTrue(true, "用户名已存在");
         return this.todoListService.getTodoLists();
     }
 
