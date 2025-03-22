@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -42,7 +41,8 @@ func LoadConfig() {
 	// 先读取配置文件
 	err := viper.ReadInConfig()
 	if err != nil {
-		panic(fmt.Errorf("读取配置文件失败: %s \n", err))
+		// 使用 log.Fatalf 替代 panic，避免程序直接崩溃，方便调试和记录错误信息
+		log.Fatalf("读取配置文件失败: %s \n", err)
 	}
 
 	// 读取文件
