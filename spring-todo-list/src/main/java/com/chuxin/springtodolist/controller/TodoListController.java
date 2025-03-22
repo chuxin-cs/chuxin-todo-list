@@ -1,5 +1,6 @@
 package com.chuxin.springtodolist.controller;
 
+import com.chuxin.springtodolist.common.result.Result;
 import com.chuxin.springtodolist.model.entity.TodoList;
 import com.chuxin.springtodolist.service.TodoListService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,31 +20,31 @@ public class TodoListController {
 
     @GetMapping("/getTodoLists")
     @Operation(summary = "获取todolist列表")
-    public List<TodoList> getTodoLists() {
+    public Result<List<TodoList>> getTodoLists() {
         return this.todoListService.getTodoLists();
     }
 
     @GetMapping("/getTodoListById/{id}")
     @Operation(summary = "获取todolist详情")
-    public TodoList getTodoListById(@PathVariable Long id) {
+    public Result<TodoList> getTodoListById(@PathVariable Long id) {
         return this.todoListService.getTodoListById(id);
     }
 
     @PostMapping("/addTodoList")
     @Operation(summary = "添加todolist")
-    public boolean addTodoList(@RequestBody TodoList todoList) {
+    public Result<Boolean> addTodoList(@RequestBody TodoList todoList) {
         return this.todoListService.addTodoList(todoList);
     }
 
     @PutMapping("/updateTodoList")
     @Operation(summary = "修改todolist")
-    public boolean updateTodoList(@RequestBody TodoList todoList) {
+    public Result<Boolean> updateTodoList(@RequestBody TodoList todoList) {
         return this.todoListService.updateTodoList(todoList);
     }
 
     @DeleteMapping("/deleteTodoList/{id}")
     @Operation(summary = "删除todolist")
-    public void deleteTodoList(@PathVariable Long id) {
-        this.todoListService.deleteTodoList(id);
+    public Result<Boolean> deleteTodoList(@PathVariable Long id) {
+        return this.todoListService.deleteTodoList(id);
     }
 }

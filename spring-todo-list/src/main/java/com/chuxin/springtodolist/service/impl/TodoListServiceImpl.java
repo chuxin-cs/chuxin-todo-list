@@ -1,6 +1,7 @@
 package com.chuxin.springtodolist.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chuxin.springtodolist.common.result.Result;
 import com.chuxin.springtodolist.mapper.TodoListMapper;
 import com.chuxin.springtodolist.model.entity.TodoList;
 import com.chuxin.springtodolist.service.TodoListService;
@@ -13,36 +14,62 @@ import java.util.List;
 public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> implements TodoListService {
     // 查询列表
     @Override
-    public List<TodoList> getTodoLists() {
+    public Result<List<TodoList>> getTodoLists() {
         // 使用MyBatis-Plus的分页插件实现分页查询
-        return this.list();
+        List<TodoList> todoLists = this.list();
+        if (todoLists != null && !todoLists.isEmpty()) {
+            return Result.success(todoLists);
+        } else {
+            return Result.failed("查询列表失败");
+        }
     }
 
     // 查询详情
     @Override
-    public TodoList getTodoListById(Long id) {
+    public Result<TodoList> getTodoListById(Long id) {
         // 使用MyBatis-Plus的getById方法根据ID查询记录
-        return this.getById(id);
+        TodoList todoList = this.getById(id);
+        if (todoList != null) {
+            return Result.success(todoList);
+        } else {
+            return Result.failed("用户查询失败");
+        }
     }
 
     // 新增
     @Override
-    public boolean addTodoList(TodoList todoList) {
+    public Result<Boolean> addTodoList(TodoList todoList) {
         // 使用MyBatis-Plus的save方法新增记录
-        return this.save(todoList);
+        boolean result = this.save(todoList);
+        if (result) {
+            return Result.success(result);
+        } else {
+            return Result.failed("新增待办事项失败");
+        }
     }
 
     // 修改
     @Override
-    public boolean updateTodoList(TodoList todoList) {
+    // 原代码中 Result<boolean> 存在语法错误，Java 泛型中不能使用基本数据类型 boolean，需要使用其包装类 Boolean
+    public Result<Boolean> updateTodoList(TodoList todoList) {
         // 使用MyBatis-Plus的updateById方法更新记录
-        return this.updateById(todoList);
+        boolean result = this.updateById(todoList);
+        if (result) {
+            return Result.success(result);
+        } else {
+            return Result.failed("更新待办事项失败");
+        }
     }
 
     // 删除
     @Override
-    public void deleteTodoList(Long id) {
+    public Result<Boolean> deleteTodoList(Long id) {
         // 使用MyBatis-Plus的removeById方法删除记录
-        this.removeById(id);
+        boolean result = this.removeById(id);
+        if (result) {
+            return Result.success(result);
+        } else {
+            return Result.failed("删除待办事项失败");
+        }
     }
 }
