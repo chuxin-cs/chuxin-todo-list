@@ -21,8 +21,7 @@ const addTodo = (todo: ITodo) => {
   })
 }
 const deleteTodo = (row: ITodo) => {
-  console.log(row,"==")
-  del(row.id).then((res) => {
+  del({id:row.id}).then((res) => {
     getData()
   })
 }

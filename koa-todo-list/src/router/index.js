@@ -21,7 +21,7 @@ function initRouter(app) {
       const { data } = ctx.request.body;
       console.log(data, "===>");
       const [result] = await pool.execute('INSERT INTO todo SET ?', [data]);
-      ctx.body = { message: '增加成功',status:200, insertId: result.insertId };
+      ctx.body = { message: '增加成功', status: 200, insertId: result.insertId };
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: '增加失败', error: error.message };
@@ -31,7 +31,8 @@ function initRouter(app) {
   // 删除
   router.delete('/del', async (ctx) => {
     try {
-      const { id } = ctx.query;
+      // 由于前端使用 axios.delete 并通过 data 传参，这里从请求体中获取 id
+      const { id } = ctx.request.body;
       const [result] = await pool.execute('DELETE FROM todo WHERE id = ?', [id]);
       if (result.affectedRows > 0) {
         ctx.body = { message: '删除成功' };
@@ -63,7 +64,7 @@ function initRouter(app) {
   });
 
   // 查询全部
-  router.get('/query', async (ctx,next) => {
+  router.get('/query', async (ctx, next) => {
     try {
       const [rows] = await pool.execute('SELECT * FROM todo');
       ctx.body = { message: '查询全部成功', data: rows };

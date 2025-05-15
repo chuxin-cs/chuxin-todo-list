@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // 删除
-export function del(){
-  return axios.delete("http://localhost:8000/del")
+export function del(data) {
+  return axios.delete("http://localhost:8000/del", { data: data })
 }
 
 // 新增
