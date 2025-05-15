@@ -1,0 +1,28 @@
+{
+  "name": "koa-todo-list",
+  "version": "1.0.0",
+  "description": "koa 实现的 todo-list 项目",
+  "scripts": {
+    "start": "nodemon index.js",
+    "dev": "npm run start"
+  },
+  "keywords": [
+    "koa",
+    "todo-list",
+    "koa-todo-list",
+    "node"
+  ],
+  "author": "chuxin",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "dotenv": "^16.5.0",
+    "koa": "^3.0.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.0.1",
+    "koa-static": "^5.0.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7"
+  }
+}
