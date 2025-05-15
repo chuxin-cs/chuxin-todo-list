@@ -4,7 +4,7 @@
   "description": "koa 实现的 todo-list 项目",
   "scripts": {
     "start": "nodemon index.js",
-    "dev": "npm run start"
+    "dev": "node index.js"
   },
   "keywords": [
     "koa",

@@ -1,5 +1,6 @@
 export interface ITodo {
   id: number
-  date: string
+  createTime: string
+  updateTime: string
   name: string
 }
