@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref,onMounted } from "vue"
 
 import {ITodo} from "./type"
 import Item from "./Item.vue"
@@ -19,7 +19,9 @@ const addTodo = (todo: ITodo) => {
     name: todo.name,
   })
 }
-
+onMounted(() => {
+  console.log('onMounted')
+})
 const tableData = ref<ITodo[]>([{
   id: 1,
   date: '2016-05-03',
