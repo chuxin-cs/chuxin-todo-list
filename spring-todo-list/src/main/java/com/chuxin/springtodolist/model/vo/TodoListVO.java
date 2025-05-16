@@ -26,4 +26,7 @@ public class TodoListVO {
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     @TableField("update_time")
     private LocalDateTime updateTime;
+
+    @Schema(description = "状态")
+    private Integer status;
 }

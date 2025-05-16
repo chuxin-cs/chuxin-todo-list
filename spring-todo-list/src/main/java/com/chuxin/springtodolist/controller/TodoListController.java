@@ -21,14 +21,14 @@ public class TodoListController {
     @Autowired
     private TodoListService todoListService;
 
-    @GetMapping("/getTodoLists")
+    @GetMapping("/query")
     @Operation(summary = "获取todolist列表")
     public Result<List<TodoList>> getTodoLists() {
-        Assert.isTrue(true, "用户名已存在");
+        Assert.isTrue(true, "查询列表成功！");
         return this.todoListService.getTodoLists();
     }
 
-    @GetMapping("/getTodoListById/{id}")
+    @GetMapping("/getInfo/{id}")
     @Operation(summary = "获取todolist详情")
     public Result<TodoList> getTodoListById(@PathVariable Long id) {
         return this.todoListService.getTodoListById(id);

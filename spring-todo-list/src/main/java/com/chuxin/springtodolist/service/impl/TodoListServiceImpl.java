@@ -16,9 +16,9 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
     @Override
     public Result<List<TodoList>> getTodoLists() {
         // 使用MyBatis-Plus的分页插件实现分页查询
-        List<TodoList> todoLists = this.list();
-        if (todoLists != null && !todoLists.isEmpty()) {
-            return Result.success(todoLists);
+        List<TodoList> todoList = this.list();
+        if (todoList != null && !todoList.isEmpty()) {
+            return Result.success(todoList);
         } else {
             return Result.failed("查询列表失败");
         }

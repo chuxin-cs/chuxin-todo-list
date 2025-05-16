@@ -1,7 +1,7 @@
 # ----------------- dev
 
 server:
-  port: 9000
+  port: 8000
 
 spring:
   # 数据库相关操作
@@ -9,11 +9,11 @@ spring:
     # 数据库连接使用 jdbc
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接地址
-    url: jdbc:mysql://localhost:3306/todo-list?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://119.91.239.178:3306/todo_list?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     # 用户名
-    username: root
+    username: todo_list
     # 密码
-    password: 123456
+    password: nyGdHZxyrnm6h8M3
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
