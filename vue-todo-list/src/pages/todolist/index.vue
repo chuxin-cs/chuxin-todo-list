@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list-container">
     <Item @addTodo="addTodo" />
-    <List :list="tableData" @deleteTodo="deleteTodo" />
+    <List :list="tableData" @deleteTodo="deleteTodo" @editTodo="editTodo" />
   </div>
 </template>
 
@@ -31,12 +31,11 @@ const getData = () => {
   })
 }
 
+const editTodo = ()=>{
+
+}
 
 onMounted(() => {
   getData()
 })
-
-
-
-
 </script>
