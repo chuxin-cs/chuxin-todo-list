@@ -1,38 +1,96 @@
+const pool = require('../core/db');
+
 class TodoListController {
   constructor() { }
-  add(ctx) {
-    ctx.body = {
-      code: 200,
-      msg: "添加成功",
-      data: {}
-    }
-   }
-  del(ctx) { 
-    ctx.body = {
-      code: 200,
-      msg: "删除成功",
-      data: {}
-    }
-  }
-  update(ctx) {
-    ctx.body = {
-      code: 200,
-      msg: "修改成功",
-      data: {}
-    }
-   }
-  query(ctx) { 
-    ctx.body = {
-      code: 200,
-      msg: "查询成功",
-      data: {b:"2"}
+
+  /**
+   * 新增
+   * @param {*} ctx
+   */
+  async add(ctx) {
+    try {
+      const { data } = ctx.request.body;
+      const [result] = await pool.execute('INSERT INTO todo SET ?', [data]);
+      ctx.body = { message: '增加成功', status: 200, insertId: result.insertId };
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { message: '增加失败', error: error.message };
     }
   }
-  queryPage(ctx) { 
-    ctx.body = {
-      code: 200,
-      msg: "分页查询成功",
-      data: {"a":1}
+
+  /**
+   * 删除
+   * @param {*} ctx
+   */
+  async del(ctx) {
+    try {
+      const { id } = ctx.request.body;
+      const [result] = await pool.execute('DELETE FROM todo WHERE id = ?', [id]);
+      if (result.affectedRows > 0) {
+        ctx.body = { message: '删除成功' };
+      } else {
+        ctx.status = 404;
+        ctx.body = { message: '未找到要删除的记录' };
+      }
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { message: '删除失败', error: error.message };
+    }
+  }
+
+
+  /**
+   * 修改
+   * @param {*} ctx
+   */
+  async update(ctx) {
+    try {
+      const { id, data } = ctx.request.body;
+      const [result] = await pool.execute('UPDATE todo SET ? WHERE id = ?', [data, id]);
+      if (result.affectedRows > 0) {
+        ctx.body = { message: '修改成功' };
+      } else {
+        ctx.status = 404;
+        ctx.body = { message: '未找到要修改的记录' };
+      }
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { message: '修改失败', error: error.message };
+    }
+  }
+
+  /**
+   * 查询全部
+   * @param {*} ctx
+   */
+  async query(ctx,next) {
+    console.log("我进入query")
+    try {
+      const [rows] = await pool.execute('SELECT * FROM todo');
+      console.log(rows)
+      console.log(ctx)
+      ctx.body = { message: '查询全部成功', data: rows };
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { message: '查询全部失败', error: error.message };
+    }
+
+    next()
+  }
+
+  /**
+   * 分页查询
+   * @param {*} ctx
+   */
+  async queryPage(ctx) {
+    try {
+      const { page = 1, pageSize = 10 } = ctx.query;
+      const offset = (page - 1) * pageSize;
+      const [rows] = await pool.execute('SELECT * FROM todo LIMIT ? OFFSET ?', [Number(pageSize), Number(offset)]);
+      ctx.body = { message: '查询分页成功', data: rows };
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { message: '查询分页失败', error: error.message };
     }
   }
 }

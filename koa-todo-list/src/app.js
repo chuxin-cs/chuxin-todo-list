@@ -1,9 +1,10 @@
 const Koa = require('koa');
-const path = require('path');
 const cors = require('@koa/cors');
+// const helmet = require('koa-helmet');
 const KoaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 
+const path = require('path');
 const Config = require('./config/index.js');
 const initRouter = require('./router/index.js');
 
@@ -12,6 +13,8 @@ function createApp() {
   const app = new Koa();
   // 设置静态资源目录
   app.use(KoaStatic(path.join(__dirname, Config.STATIC_PATH)));
+  // 安全
+  // app.use(helmet());
   // 跨域
   app.use(cors());
   // 解析请求体

@@ -13,16 +13,16 @@ const pool = mysql.createPool({
 });
 
 // 测试连接
-(async () => {
-  try {
-    const connection = await pool.getConnection();
-    console.log('数据库连接成功');
-    connection.release();
-  } catch (err) {
-    console.error('数据库连接失败:', err);
-    process.exit(1);
-  }
-})();
+// (async () => {
+//   try {
+//     const connection = await pool.getConnection();
+//     console.log('数据库连接成功');
+//     connection.release();
+//   } catch (err) {
+//     console.error('数据库连接失败:', err);
+//     process.exit(1);
+//   }
+// })();
 
 
 module.exports = pool;

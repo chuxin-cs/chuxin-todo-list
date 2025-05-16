@@ -23,6 +23,9 @@ importers:
       koa-bodyparser:
         specifier: ^4.4.1
         version: 4.4.1
+      koa-helmet:
+        specifier: ^8.0.1
+        version: 8.0.1(helmet@8.1.0)
       koa-logger:
         specifier: ^3.2.1
         version: 3.2.1
@@ -321,6 +324,10 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  helmet@8.1.0:
+    resolution: {integrity: sha512-jOiHyAZsmnr8LqoPGmCjYAaiuWwjAPLgY8ZX2XrmHawt99/u1y6RgrZMTeoPfpUbV96HOalYgz1qzkRbw54Pmg==}
+    engines: {node: '>=18.0.0'}
+
   http-assert@1.5.0:
     resolution: {integrity: sha512-uPpH7OKX4H25hBmU6G1jWNaqJGpTXxey+YOUizJUAgu0AjLUeC8D73hTrhvDS5D+GJN1DN1+hhc/eF/wpxtp0w==}
     engines: {node: '>= 0.8'}
@@ -410,6 +417,12 @@ packages:
 
   koa-compose@4.1.0:
     resolution: {integrity: sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==}
+
+  koa-helmet@8.0.1:
+    resolution: {integrity: sha512-lXDqTqNLgqyOKEuCSF3MFReJmEQQ0GD0NzkdSe9dKH87NSMc5GxAA7H5mYaAT+UJypYkIS1lPNRqTuEUgl+l3Q==}
+    engines: {node: '>= 18.0.0'}
+    peerDependencies:
+      helmet: '>= 6'
 
   koa-logger@3.2.1:
     resolution: {integrity: sha512-MjlznhLLKy9+kG8nAXKJLM0/ClsQp/Or2vI3a5rbSQmgl8IJBQO0KI5FA70BvW+hqjtxjp49SpH2E7okS6NmHg==}
@@ -986,6 +999,8 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  helmet@8.1.0: {}
+
   http-assert@1.5.0:
     dependencies:
       deep-equal: 1.0.1
@@ -1087,6 +1102,10 @@ snapshots:
       type-is: 1.6.18
 
   koa-compose@4.1.0: {}
+
+  koa-helmet@8.0.1(helmet@8.1.0):
+    dependencies:
+      helmet: 8.1.0
 
   koa-logger@3.2.1:
     dependencies:
