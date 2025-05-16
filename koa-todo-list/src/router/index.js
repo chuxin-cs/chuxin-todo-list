@@ -1,20 +1,9 @@
 const KoaRouter = require('koa-router');
-const mysql = require('mysql2/promise');
+
+const router = new KoaRouter();
+const { publicTodoListRouter, proteetedTodoListRouter } = require('./todolist.js')
 
 function initRouter(app) {
-  const router = new KoaRouter();
-
-  // 创建数据库连接池
-  const pool = mysql.createPool({
-    host: '119.91.239.178', // 数据库主机地址
-    user: 'todo_list', // 数据库用户名
-    password: 'nyGdHZxyrnm6h8M3', // 数据库密码
-    database: 'todo_list', // 数据库名
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-  });
-
   // 增加
   router.post('/add', async (ctx) => {
     try {
@@ -90,6 +79,9 @@ function initRouter(app) {
   });
 
   app.use(router.routes())
+
+  app.use(publicTodoListRouter.routes())
+  app.use(proteetedTodoListRouter.routes())
 }
 
 module.exports = initRouter;
