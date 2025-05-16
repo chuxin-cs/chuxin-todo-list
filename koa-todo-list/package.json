@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^5.0.0",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "jsonwebtoken": "^9.0.2",
     "koa": "^3.0.0",

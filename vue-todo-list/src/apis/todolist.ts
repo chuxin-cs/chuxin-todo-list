@@ -3,12 +3,12 @@ import axios from "axios";
 const BaseURL= `http://localhost:8000/todolist`
 // 删除
 export function del(data) {
-  return axios.delete(BaseURL + "/del", { data: data })
+  return axios.delete(BaseURL + "/del",data)
 }
 
 // 新增
-export function add(){
-  return axios.post(BaseURL+"/add")
+export function add(data){
+  return axios.post(BaseURL+"/add", data)
 }
 
 // 修改

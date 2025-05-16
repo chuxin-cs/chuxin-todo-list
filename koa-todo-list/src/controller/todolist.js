@@ -1,4 +1,5 @@
-const {pool} = require('../core/db');
+const dayjs = require('dayjs');
+const { pool } = require('../core/db');
 
 class TodoListController {
   /**
@@ -7,9 +8,25 @@ class TodoListController {
    */
   async add(ctx) {
     try {
-      const { data } = ctx.request.body;
-      const [result] = await pool.execute('INSERT INTO todo SET ?', [data]);
-      ctx.body = { message: '增加成功', status: 200, insertId: result.insertId };
+      const data = ctx.request.body;
+      // 生成符合 MySQL datetime 格式的时间戳
+      const timestamp = dayjs().format('YYYY-MM-DD HH:mm:ss');
+      
+      // 使用显式字段列表的 SQL 语句
+      const sql = `INSERT INTO todo (name, createTime, updateTime) 
+                   VALUES (?, ?, ?)`;
+      
+      const [result] = await pool.execute(sql, [
+        data.name,
+        timestamp,
+        timestamp
+      ]);
+      
+      ctx.body = { 
+        message: '增加成功', 
+        status: 200, 
+        insertId: result.insertId 
+      };
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: '增加失败', error: error.message };

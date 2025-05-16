@@ -6,17 +6,16 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from "dayjs"
 import { ref,onMounted } from "vue"
-import {query,del} from "@/apis"
+import {query,del,add} from "@/apis/todolist"
 
 import {ITodo} from "./type"
 import Item from "./Item.vue"
 import List from "./List.vue"
 
 const addTodo = (todo: ITodo) => {
-  tableData.value.unshift({
-    id: tableData.value.length + 1,
-    date: '2016-05-03',
+  add({
     name: todo.name,
   })
 }
