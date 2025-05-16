@@ -1,11 +1,53 @@
 import { columns } from './columns';
 import { useState, useEffect } from 'react';
-import { Space, Button, Table, Input, Switch } from 'antd';
+import { Space, Button, Table, Input, Switch ,Modal, Form } from 'antd';
 import { getTodoLists, addTodo, updateTodo, deleteTodo } from '@/api/todolist';
 import {Todo} from "./type"
+import dayjs from 'dayjs';
+
+
+type FieldType = {
+  name?: string;
+  status?: number;
+};
+
 function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [model,setModel] = useState({})
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [form] = Form.useForm(); // 获取 Form 实例
+
+  const showModal = (row) => {
+    setModel({
+      name: row.name,
+      status: row.status,
+    })
+    form.setFieldsValue({
+      name: row.name,
+      status: row.status,
+    })
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  
+  const handleCancel = () => {
+    setModel({})
+    form.resetFields(); // 重置表单
+    setIsModalOpen(false);
+  };
+
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
+  };
+  
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   const fetchTodos = async () => {
     try {
@@ -96,12 +138,18 @@ function TodoList() {
       dataIndex: 'updateTime',
       key: 'updateTime',
       sorter: true,
+      render: (val) => {
+        return dayjs(val).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
       key: 'createTime',
       sorter: true,
+      render: (val) => {
+        return dayjs(val).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     {
       title: '操作',
@@ -111,7 +159,9 @@ function TodoList() {
       render: (val,row) => {
         return (
           <Space>
-            <Button type='link'>编辑</Button>
+            <Button type='link' onClick={
+              ()=>showModal(row)
+            }>编辑</Button>
             <Button
               type='link'
               danger
@@ -145,6 +195,51 @@ function TodoList() {
         添加
       </Button>
       <Table rowKey='id' dataSource={todos} columns={columns} onChange={handleTableChange} />
+
+      <Modal
+        title="Basic Modal"
+        closable={{ 'aria-label': 'Custom Close Button' }}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Form
+          form={form}
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          {JSON.stringify(model)}
+          <Form.Item<FieldType>
+            label="内容"
+            name="name"
+            rules={[{ required: true, message: '请输入待办事项' }]}
+          >
+            <Input value={model.name} onChange={ (e)=> setModel((model)=>({...model, name: e.target.value}))} />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="状态"
+            name="status"
+            rules={[{ required: true, message: '状态' }]}
+          >
+             <Switch
+                checkedChildren='开启'
+                unCheckedChildren='关闭'
+                defaultChecked={model.status === 1 ? true : false}
+                onChange={(checked) => {
+                  const status = checked ? 1 : 0;
+                  setModel((model)=>({...model, status}))
+                }}
+              />
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 }
