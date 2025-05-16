@@ -1,9 +1,10 @@
-package database
+package core
 
 import (
 	"fmt"
 	"go-todo-list/config"
 	"go-todo-list/model"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

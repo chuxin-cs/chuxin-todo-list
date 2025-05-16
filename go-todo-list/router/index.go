@@ -1,10 +1,11 @@
 package router
 
 import (
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"go-todo-list/api"
 	"go-todo-list/middleware"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,8 +27,8 @@ func InitRouter() *gin.Engine {
 		InitTodoListRouter(publicGroup) // todolist 的路由注册
 	}
 
-	// 运行在 9000 端口
-	err := router.Run(":9000")
+	// 运行
+	err := router.Run(":8000")
 	if err != nil {
 		return nil
 	}

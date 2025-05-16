@@ -1,7 +1,7 @@
 package api
 
 import (
-	"go-todo-list/database"
+	"go-todo-list/core"
 	"go-todo-list/model"
 	"net/http"
 
@@ -20,9 +20,9 @@ type TodoListApi struct{}
 // @Success 200 {object} model.TodoListModel
 // @Failure 500 {object} map[string]interface{}
 // @Router /todolist/getTodoLists [get]
-func (t *TodoListApi) GetTodoList(c *gin.Context) {
+func (t *TodoListApi) QueryPage(c *gin.Context) {
 	var userList []model.TodoListModel
-	err := database.DB.Limit(1).Offset(10).Find(&userList).Error
+	err := core.DB.Limit(1).Offset(10).Find(&userList).Error
 	if err != nil {
 		c.JSON(500, gin.H{"message": "查询失败", "code": http.StatusInternalServerError})
 		return
@@ -31,6 +31,21 @@ func (t *TodoListApi) GetTodoList(c *gin.Context) {
 		"message": "查询成功！",
 		"code":    http.StatusOK,
 		"data":    userList,
+	})
+}
+
+// Query 查询全部 TodoList 数据并返回列表
+func (t *TodoListApi) Query(c *gin.Context) {
+	var todoList []model.TodoListModel
+	err := core.DB.Find(&todoList).Error
+	if err != nil {
+		c.JSON(500, gin.H{"message": "查询失败", "code": http.StatusInternalServerError})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": "查询成功！",
+		"code":    http.StatusOK,
+		"data":    todoList,
 	})
 }
 
@@ -46,7 +61,7 @@ func (t *TodoListApi) GetTodoList(c *gin.Context) {
 func (t *TodoListApi) GetTodoInfo(c *gin.Context) {
 	id := c.Param("id")
 	var todo model.TodoListModel
-	err := database.DB.First(&todo, id).Error
+	err := core.DB.First(&todo, id).Error
 	if err != nil {
 		c.JSON(404, gin.H{"message": "未找到该TodoList", "code": http.StatusNotFound})
 		return
@@ -79,7 +94,7 @@ func (t *TodoListApi) Delete(c *gin.Context) {
 	}
 	// 根据ID删除TodoList
 	var todo model.TodoListModel
-	result := database.DB.Delete(&todo, id)
+	result := core.DB.Delete(&todo, id)
 	if result.Error != nil {
 		c.JSON(500, gin.H{"message": "删除失败", "code": http.StatusInternalServerError})
 		return
@@ -124,13 +139,13 @@ func (t *TodoListApi) Update(c *gin.Context) {
 	}
 	// 根据ID查找TodoList
 	var existingTodo model.TodoListModel
-	result := database.DB.First(&existingTodo, id)
+	result := core.DB.First(&existingTodo, id)
 	if result.Error != nil {
 		c.JSON(404, gin.H{"message": "未找到该TodoList", "code": http.StatusNotFound})
 		return
 	}
 	// 更新TodoList
-	if err := database.DB.Model(&existingTodo).Updates(todo).Error; err != nil {
+	if err := core.DB.Model(&existingTodo).Updates(todo).Error; err != nil {
 		c.JSON(500, gin.H{"message": "更新失败", "code": http.StatusInternalServerError})
 		return
 	}
@@ -161,7 +176,7 @@ func (t *TodoListApi) Add(c *gin.Context) {
 	}
 
 	// 尝试创建 TodoList
-	if err := database.DB.Create(&todo).Error; err != nil {
+	if err := core.DB.Create(&todo).Error; err != nil {
 		c.JSON(500, gin.H{"message": "创建失败", "code": http.StatusInternalServerError})
 		return
 	}

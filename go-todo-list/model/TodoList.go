@@ -6,5 +6,5 @@ type TodoListModel struct {
 }
 
 func (TodoListModel) TableName() string {
-	return "sys_models"
+	return "todo"
 }
