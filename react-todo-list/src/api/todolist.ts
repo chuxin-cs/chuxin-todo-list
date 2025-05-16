@@ -2,7 +2,7 @@ import { get, post, put, del } from '../utils/request';
 
 // 获取todo列表
 export const getTodoLists = () => {
-  return get('/todolist/getTodoLists');
+  return get('/todolist/query');
 };
 
 // 添加todo
@@ -17,5 +17,5 @@ export const updateTodo = (data: any) => {
 
 // 删除todo
 export const deleteTodo = (id: number) => {
-  return del(`/todolist/delete/${id}`);
+  return del(`/todolist/del`,{ data: { id } });
 };

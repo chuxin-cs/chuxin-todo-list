@@ -2,15 +2,7 @@ import { columns } from './columns';
 import { useState, useEffect } from 'react';
 import { Space, Button, Table, Input, Switch } from 'antd';
 import { getTodoLists, addTodo, updateTodo, deleteTodo } from '@/api/todolist';
-
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-  updateTime?: string;
-  createTime?: string;
-}
-
+import {Todo} from "./type"
 function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -34,7 +26,7 @@ function TodoList() {
     // 检查输入框是否为空
     if (inputValue.trim()) {
       try {
-        const newTodo = { text: inputValue, completed: false };
+        const newTodo = { name: inputValue };
         await addTodo(newTodo);
         fetchTodos();
         // 清空输入框
@@ -64,13 +56,13 @@ function TodoList() {
   const columns = [
     {
       title: '内容',
-      dataIndex: 'text',
-      key: 'text',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: '完成状态',
-      dataIndex: 'completed',
-      key: 'completed',
+      dataIndex: 'status',
+      key: 'status',
       filters:[
         {
           text: '开启',
@@ -83,7 +75,7 @@ function TodoList() {
       ],
       filterSearch: true,
       onFilter:(val,row)=>{
-        return row.completed === val;
+        return row.status === val;
       },
       render: (val,row) => {
         return (
@@ -92,9 +84,8 @@ function TodoList() {
             unCheckedChildren='关闭'
             defaultChecked={val === 1 ? true : false}
             onChange={(checked) => {
-              console.log(row, '===');
-              const completed = checked ? 1 : 0;
-              toggleTodo({ ...row, completed });
+              const status = checked ? 1 : 0;
+              toggleTodo({ ...row, status });
             }}
           />
         );

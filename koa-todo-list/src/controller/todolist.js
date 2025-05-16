@@ -11,21 +11,18 @@ class TodoListController {
       const data = ctx.request.body;
       // 生成符合 MySQL datetime 格式的时间戳
       const timestamp = dayjs().format('YYYY-MM-DD HH:mm:ss');
-      
       // 使用显式字段列表的 SQL 语句
       const sql = `INSERT INTO todo (name, createTime, updateTime) 
                    VALUES (?, ?, ?)`;
-      
       const [result] = await pool.execute(sql, [
         data.name,
         timestamp,
         timestamp
       ]);
-      
-      ctx.body = { 
-        message: '增加成功', 
-        status: 200, 
-        insertId: result.insertId 
+      ctx.body = {
+        message: '增加成功',
+        code: 200,
+        insertId: result.insertId
       };
     } catch (error) {
       ctx.status = 500;
@@ -39,10 +36,12 @@ class TodoListController {
    */
   async del(ctx) {
     try {
-      const { id } = ctx.request.body;
-      const [result] = await pool.execute('DELETE FROM todo WHERE id = ?', [id]);
+      // 由于前端使用 axios.delete 传递数据，在 Koa 中，DELETE 请求的数据通常通过查询参数传递，这里从 query 中获取数据
+      const data = ctx.request.body;
+      console.log(data)
+      const [result] = await pool.execute('DELETE FROM todo WHERE id = ?', [data.id]);
       if (result.affectedRows > 0) {
-        ctx.body = { message: '删除成功' };
+        ctx.body = { code: 200, message: '删除成功' };
       } else {
         ctx.status = 404;
         ctx.body = { message: '未找到要删除的记录' };
@@ -81,7 +80,7 @@ class TodoListController {
   async query(ctx) {
     try {
       const [rows] = await pool.execute('SELECT * FROM todo');
-      ctx.body = { message: '查询全部成功', data: rows };
+      ctx.body = { code: 200, message: '查询全部成功', data: rows };
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: '查询全部失败', error: error.message };
