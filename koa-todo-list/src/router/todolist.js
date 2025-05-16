@@ -9,15 +9,15 @@ const routerConfig = {
 const proteetedRouter = new Router(routerConfig);
 // 全局中间件
 proteetedRouter.use(Auth.test);
-// 不需要鉴权的 admin 路由组
-const publicRouter = new Router(routerConfig);
-
+// api
 proteetedRouter.post('/add', add);
 proteetedRouter.delete('/del', del);
 proteetedRouter.put('/update', update);
 proteetedRouter.get('/query', query);
 proteetedRouter.get('/queryPage', queryPage);
 
+// 不需要鉴权的 admin 路由组
+const publicRouter = new Router(routerConfig);
 publicRouter.get("/test", async (ctx) => {
   ctx.body = "我是公开的路由";
 })

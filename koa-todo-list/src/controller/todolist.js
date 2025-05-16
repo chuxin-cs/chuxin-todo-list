@@ -1,4 +1,4 @@
-const pool = require('../core/db');
+const {pool} = require('../core/db');
 
 class TodoListController {
   constructor() { }
@@ -63,19 +63,14 @@ class TodoListController {
    * 查询全部
    * @param {*} ctx
    */
-  async query(ctx,next) {
-    console.log("我进入query")
+  async query(ctx) {
     try {
       const [rows] = await pool.execute('SELECT * FROM todo');
-      console.log(rows)
-      console.log(ctx)
-      ctx.body = { message: '查询全部成功', data: rows };
+      ctx.body = { message: '查询全部成功1', data: rows };
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: '查询全部失败', error: error.message };
     }
-
-    next()
   }
 
   /**
