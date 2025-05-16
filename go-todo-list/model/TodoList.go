@@ -2,7 +2,7 @@ package model
 
 type TodoListModel struct {
 	*Model
-	Name   string `json:"name"`
+	Name   string `gorm:"type:varchar(255);not null" json:"name"`
 	Status int    `json:"status"`
 }
 

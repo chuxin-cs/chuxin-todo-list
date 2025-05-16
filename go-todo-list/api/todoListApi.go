@@ -1,11 +1,10 @@
 package api
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-todo-list/core"
 	"go-todo-list/model"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
 type TodoListApi struct{}
@@ -174,6 +173,10 @@ func (t *TodoListApi) Add(c *gin.Context) {
 		c.JSON(400, gin.H{"message": "请求体格式错误", "code": http.StatusBadRequest})
 		return
 	}
+
+	// 手动设置创建时间和更新时间
+	//todo.CreateTime = time.Now()
+	//todo.UpdateTime = time.Now()
 
 	// 尝试创建 TodoList
 	if err := core.DB.Create(&todo).Error; err != nil {
