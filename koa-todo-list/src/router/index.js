@@ -4,7 +4,7 @@ const { protectedUserRouter } = require('./user.js')
 const { publicTodoListRouter, proteetedTodoListRouter } = require('./todolist.js')
 
 function initRouter(app) {
-  const router = new Router();
+  const router = new Router({ prefix: '/api' });
 
   // todolist
   router.use(publicTodoListRouter.routes())
