@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> implements TodoListService {
@@ -40,6 +41,9 @@ public class TodoListServiceImpl extends ServiceImpl<TodoListMapper, TodoList> i
     @Override
     public Result<Boolean> addTodoList(TodoList todoList) {
         // 使用MyBatis-Plus的save方法新增记录
+        todoList.setStatus(0);
+        todoList.setUpdateTime(LocalDateTime.now());
+        todoList.setCreateTime(LocalDateTime.now());
         boolean result = this.save(todoList);
         if (result) {
             return Result.success(true);
