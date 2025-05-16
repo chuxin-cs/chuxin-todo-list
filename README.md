@@ -7,7 +7,8 @@ git clone https://github.com/chuxin-cs/chuxin-todo-list.git
 ```
 
 ## ✨ 项目列表
-### 1. spring-todo-list
+### 1. Spring Boot 版本
+- [spring-boot-todo-list](URL_ADDRESS- [spring-boot-todo-list](https://github.com/chuxin-cs/chuxin-todo-list/tree/master/spring-todo-list) 用于实现 TodoList 功能
 
 ### 2. go-todo-list
 
