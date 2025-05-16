@@ -66,7 +66,7 @@ class TodoListController {
   async query(ctx) {
     try {
       const [rows] = await pool.execute('SELECT * FROM todo');
-      ctx.body = { message: '查询全部成功1', data: rows };
+      ctx.body = { message: '查询全部成功', data: rows };
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: '查询全部失败', error: error.message };
