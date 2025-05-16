@@ -1,6 +1,7 @@
 const Router = require('koa-router');
-const { publicTodoListRouter, proteetedTodoListRouter } = require('./todolist.js')
 
+const { protectedUserRouter } = require('./user.js')
+const { publicTodoListRouter, proteetedTodoListRouter } = require('./todolist.js')
 
 function initRouter(app) {
   const router = new Router();
@@ -8,6 +9,8 @@ function initRouter(app) {
   // todolist
   router.use(publicTodoListRouter.routes())
   router.use(proteetedTodoListRouter.routes())
+  // user
+  router.use(protectedUserRouter.routes())
   // 其他路由
   // ...
 
