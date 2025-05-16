@@ -8,19 +8,18 @@
 <script setup lang="ts">
 import dayjs from "dayjs"
 import { ref,onMounted } from "vue"
-import {query,del,add} from "@/apis/todolist"
+import {query,delTodo,add} from "@/apis/todolist"
 
 import {ITodo} from "./type"
 import Item from "./Item.vue"
 import List from "./List.vue"
 
-const addTodo = (todo: ITodo) => {
-  add({
-    name: todo.name,
-  })
+const addTodo = async (todo: ITodo) => {
+  await add({name: todo.name})
+  getData()
 }
 const deleteTodo = (row: ITodo) => {
-  del({id:row.id}).then((res) => {
+  delTodo({id:row.id}).then((res) => {
     getData()
   })
 }
@@ -28,8 +27,7 @@ const tableData = ref<ITodo[]>([])
 
 const getData = () => {
   query().then((res) => {
-    const data = res?.data || {}
-    tableData.value = data.data
+    tableData.value = res || []
   })
 }
 

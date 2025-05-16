@@ -1,27 +1,27 @@
-import axios from "axios";
+import { get, post, put, del } from '../utils/request';
 
-const BaseURL= `http://localhost:8000/todolist`
+
 // 删除
-export function del(data) {
-  return axios.delete(BaseURL + "/del",data)
+export function delTodo(data) {
+  return del("/todolist/del",{ data })
 }
 
 // 新增
 export function add(data){
-  return axios.post(BaseURL+"/add", data)
+  return post("/todolist/add", data)
 }
 
 // 修改
-export function update(){
-  return axios.put(BaseURL +"/update")
+export function update(data){
+  return put("/todolist/update", data)
 }
 
 // 查询全部
 export function query(){
-  return axios.get(BaseURL + "/query")
+  return get("/todolist/query")
 }
 
 // 查询分页
 export function queryPage(){
-  return axios.get(BaseURL + "/queryPage")
+  return get("/todolist/queryPage")
 }
