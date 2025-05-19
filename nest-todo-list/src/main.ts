@@ -40,7 +40,7 @@ async function bootstrap() {
   const printSwaggerLog = setupSwagger(app, configService);
 
   await app.listen(port, '0.0.0.0', () => {
-    rintSwaggerLog?.();
+    printSwaggerLog?.();
   });
 }
 bootstrap();

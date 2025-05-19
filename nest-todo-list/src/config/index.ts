@@ -10,6 +10,14 @@ import {
 } from './swagger.config';
 // import { ossRegToken, IOssConfig } from './oss.config';
 
+export * from './app.config';
+export * from './database.config';
+export * from './mailer.config';
+export * from './oss.config';
+export * from './redis.config';
+export * from './security.config';
+export * from './swagger.config';
+
 export interface AllConfigType {
   [appRegToken]: IAppConfig;
   [dbRegToken]: IDatabaseConfig;

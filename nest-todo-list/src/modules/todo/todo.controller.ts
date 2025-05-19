@@ -1,6 +1,6 @@
 import { Controller, Get, Put, Post, Delete } from '@nestjs/common';
 
-@Controller('api/todolist')
+@Controller('todolist')
 export class TodoController {
   @Get('/query')
   getTodoList() {
