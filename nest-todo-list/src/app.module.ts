@@ -10,6 +10,7 @@ import { TodoModule } from './modules/todo/todo.module';
 
 @Module({
   imports: [
+    // 配置文件
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,
@@ -17,6 +18,8 @@ import { TodoModule } from './modules/todo/todo.module';
       envFilePath: ['.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
       load: [...Object.values(config)],
     }),
+
+    // 业务模块
     TodoModule,
   ],
   controllers: [],
