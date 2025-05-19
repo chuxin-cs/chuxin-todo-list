@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 // 配置文件
 import config from '~/config'
 import { ConfigModule } from '@nestjs/config'
+
+// 业务模块
+import { TodoModule } from './modules/todo/todo.module';
 
 
 @Module({
@@ -16,8 +17,9 @@ import { ConfigModule } from '@nestjs/config'
       envFilePath: ['.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
       load: [...Object.values(config)],
     }),
+    TodoModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
