@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "commonjs",
+
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+
 
     // 启用sourceMap
     "sourceMap": true,
@@ -14,7 +16,7 @@
     "outDir": "./dist",
 
     // 编译目标为ES2023，并且使用ESNext的库
-    "target": "ES2023",
+    "target": "ES2022",
     "lib": ["ESNext"],
 
     // 模块解析的根目录
@@ -26,10 +28,9 @@
     // 禁止严格模式下的空值检查
     "strictNullChecks": false,
 
-
     "incremental": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false

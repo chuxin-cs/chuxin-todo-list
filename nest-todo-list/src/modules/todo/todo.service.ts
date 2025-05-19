@@ -17,7 +17,7 @@ export class TodoService {
     private readonly todoRepository: Repository<TodoEntity>,
   ) {}
 
-  async query(): Promise<Pagination<TodoEntity>> {
-    return paginate(this.todoRepository, { page: 0, pageSize: 1000 });
+  async query() {
+    return this.todoRepository.find();
   }
 }
