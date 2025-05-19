@@ -6,16 +6,33 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
+
+    // 启用sourceMap
     "sourceMap": true,
+
+    // 输出目录
     "outDir": "./dist",
+
+    // 编译目标为ES2023，并且使用ESNext的库
+    "target": "ES2023",
+    "lib": ["ESNext"],
+
+    // 模块解析的根目录
     "baseUrl": "./",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    
+    // 禁止严格模式下的空值检查
+    "strictNullChecks": false,
+
+
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": ["node_modules", "scripts", "dist"]
 }
