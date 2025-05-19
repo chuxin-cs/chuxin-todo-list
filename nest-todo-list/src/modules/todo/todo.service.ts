@@ -1,4 +1,23 @@
-import { Injectable } from '@nestjs/common';
+// 数据库
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { paginate } from '~/helper/paginate';
+import { Pagination } from '~/helper/paginate/pagination';
+import { TodoEntity } from './todo.entity';
+
+import { TodoDto, TodoQueryDto, TodoUpdateDto } from './todo.dto';
 
 @Injectable()
-export class TodoService {}
+export class TodoService {
+  constructor(
+    @InjectRepository(TodoEntity)
+    private readonly todoRepository: Repository<TodoEntity>,
+  ) {}
+
+  async query(): Promise<Pagination<TodoEntity>> {
+    return paginate(this.todoRepository, { page: 0, pageSize: 1000 });
+  }
+}
