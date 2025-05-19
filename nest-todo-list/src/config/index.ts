@@ -1,5 +1,5 @@
 import { appRegToken, IAppConfig, AppConfig } from './app.config';
-// import { dbRegToken, IDatabaseConfig } from './database.config';
+import { dbRegToken, IDatabaseConfig, DatabaseConfig } from './database.config';
 // import { mailerRegToken, IMailerConfig } from './mailer.config';
 // import { redisRegToken, IRedisConfig } from './redis.config';
 // import { securityRegToken, ISecurityConfig } from './security.config';
@@ -8,7 +8,7 @@ import { appRegToken, IAppConfig, AppConfig } from './app.config';
 
 export interface AllConfigType {
   [appRegToken]: IAppConfig;
-  //   [dbRegToken]: IDatabaseConfig
+  [dbRegToken]: IDatabaseConfig;
   //   [mailerRegToken]: IMailerConfig
   //   [redisRegToken]: IRedisConfig
   //   [securityRegToken]: ISecurityConfig
@@ -19,5 +19,6 @@ export interface AllConfigType {
 export type ConfigKeyPaths = RecordNamePaths<AllConfigType>;
 
 export default {
-  AppConfig
-}
+  AppConfig,
+  DatabaseConfig,
+};

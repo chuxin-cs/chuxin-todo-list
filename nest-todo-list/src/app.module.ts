@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 
 // 配置文件
-import config from '~/config'
-import { ConfigModule } from '@nestjs/config'
+import config from '~/config';
+import { ConfigModule } from '@nestjs/config';
 
 // 业务模块
 import { TodoModule } from './modules/todo/todo.module';
-
 
 @Module({
   imports: [
