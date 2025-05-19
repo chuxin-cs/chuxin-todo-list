@@ -3,7 +3,11 @@ import { dbRegToken, IDatabaseConfig, DatabaseConfig } from './database.config';
 // import { mailerRegToken, IMailerConfig } from './mailer.config';
 // import { redisRegToken, IRedisConfig } from './redis.config';
 // import { securityRegToken, ISecurityConfig } from './security.config';
-// import { swaggerRegToken, ISwaggerConfig } from './swagger.config';
+import {
+  swaggerRegToken,
+  ISwaggerConfig,
+  SwaggerConfig,
+} from './swagger.config';
 // import { ossRegToken, IOssConfig } from './oss.config';
 
 export interface AllConfigType {
@@ -12,7 +16,7 @@ export interface AllConfigType {
   //   [mailerRegToken]: IMailerConfig
   //   [redisRegToken]: IRedisConfig
   //   [securityRegToken]: ISecurityConfig
-  //   [swaggerRegToken]: ISwaggerConfig
+  [swaggerRegToken]: ISwaggerConfig;
   //   [ossRegToken]: IOssConfig
 }
 
@@ -21,4 +25,5 @@ export type ConfigKeyPaths = RecordNamePaths<AllConfigType>;
 export default {
   AppConfig,
   DatabaseConfig,
+  SwaggerConfig,
 };

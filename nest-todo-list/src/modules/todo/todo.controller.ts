@@ -1,14 +1,13 @@
-import { Controller, Get,Put,Post, Delete } from '@nestjs/common';
+import { Controller, Get, Put, Post, Delete } from '@nestjs/common';
 
 @Controller('api/todolist')
 export class TodoController {
-  
   @Get('/query')
   getTodoList() {
     return 'query';
   }
 
-  @Get("/queryPage")
+  @Get('/queryPage')
   getTodoListPage() {
     return 'queryPage';
   }
@@ -19,18 +18,17 @@ export class TodoController {
   }
 
   @Post('/add')
-  add(){
-    return "add"
+  add() {
+    return 'add';
   }
 
   @Delete('/del')
-  del(){
-    return "del"
+  del() {
+    return 'del';
   }
 
   @Put('/update')
-  update(){
-    return "update"
+  update() {
+    return 'update';
   }
-
 }
